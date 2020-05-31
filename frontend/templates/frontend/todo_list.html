@@ -78,6 +78,10 @@
             background: lightgreen;
         }
 
+        #update-button {
+            margin-left: 250px;
+        }
+
 	</style>
 </head>
 
@@ -100,7 +104,7 @@
 			</div>
 
 			<div id="list-wrapper">
-
+                
 			</div>	
 		</div>
 
@@ -211,6 +215,40 @@
                         }).then(
                             window.location.reload()
                         )
+                })
+
+                //Edits a task
+                editButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    target = e.target;
+                    var index = target.parentNode.parentNode.id;
+                    console.log(index);
+                    target.parentNode.parentNode.innerHTML = `
+                        <form>
+                            <div class="update-wrapper">
+                                <input type="text" id="new-title">
+                                <input type="submit" value="UPDATE" class="btn btn-primary" id="update-button">
+                            </div>
+                        </form>
+                    `
+                    var updateButton = document.querySelector('#update-button');
+                    updateButton.addEventListener('click', function(e) {
+                        var newtask = document.querySelector('#new-title').value;
+                        up_url = `http://127.0.0.1:8000/api/task-update/${data[index].id}/`;
+                        console.log(data[index].id);
+                        fetch(
+                        up_url,
+                        {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                task: newtask,
+                            }),
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-Token': csrf_token
+                            }
+                        })
+                    })
                 })
             }
         }
