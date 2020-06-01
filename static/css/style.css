@@ -62,9 +62,17 @@ strike {
 }
 
 .completed {
-    background: lightgreen;
+    background: aquamarine;
+}
+
+.update-wrapper {
+    display: flex !important;
 }
 
 #update-button {
-    margin-left: 250px;
+    margin-left: 130px;
+}
+
+#cancel-button {
+    margin-left: 60px;
 }
